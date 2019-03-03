@@ -1,0 +1,46 @@
+---
+- name: Install filebeat packages
+  yum: pkg={{ item }} state={{ pkgstate }}
+  with_items: "{{ filebeat_packages }}"
+  tags:
+  - ensure
+
+- name: create directory /var/log/filebeat
+  file: owner=root group=root state=directory mode=0755 path=/var/log/filebeat
+
+- name: template /etc/filebeat/filebeat.yml
+  template: owner=root group=root mode=0644 src=templates/filebeat.yml.j2 dest=/etc/filebeat/filebeat.yml
+  tags:
+  - ensure
+
+- name: copy /etc/filebeat/fields.yml
+  copy: owner=root group=root mode=0644 src=templates/filebeat-fields.yml.j2 dest=/etc/filebeat/fields.yml
+  tags:
+  - ensure
+
+- name: template /etc/filebeat/filebeat.template.json
+  template: owner=root group=root mode=0644 src=templates/filebeat.template.json.j2 dest=/etc/filebeat/filebeat.template.json
+  tags:
+  - ensure
+
+- name: svckill filebeat
+  file: dest=/usr/local/etc/svckill.ignore mode=0755 state=touch
+- lineinfile: dest=/usr/local/etc/svckill.ignore regexp=^beat line=filebeat
+
+- name: Create /etc/beats/certs directory
+  file: dest=/etc/beats/certs mode=0755 state=directory owner=root group=root
+
+- name: Copy cacert.pem
+  copy: mode=0444 src=/etc/certs/cacert.pem dest=/etc/beats/certs/cacert.pem
+
+- name: Enable Firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: Open beats port {{ beats_port }}
+  firewalld:
+    port: "{{ beats_port }}/tcp"
+    zone: public
+    permanent: true
+    state: enabled
+
+- service: name=firewalld enabled=true state=reloaded

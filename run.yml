@@ -3,3 +3,6 @@
   tasks:
   - name: update syslog
     command: echo "me"
+
+  - name: import filebeats
+    import_tasks: filebeat.yml
