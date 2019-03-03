@@ -4,6 +4,8 @@
    beats_version: 6.5.4
    beats_port: '5044'
    filebeat_packages: filebeat
+   pkgstate: installed
+   kibana_port: 5601
 
 - name: Install filebeat packages
   yum: pkg={{ item }} state={{ pkgstate }}
