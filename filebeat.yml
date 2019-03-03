@@ -1,4 +1,10 @@
 ---
+- name: set vars
+  set_fact:
+   beats_version: 6.5.4
+   beats_port: '5044'
+   filebeat_packages: filebeat
+
 - name: Install filebeat packages
   yum: pkg={{ item }} state={{ pkgstate }}
   with_items: "{{ filebeat_packages }}"
