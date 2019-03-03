@@ -1,0 +1,5 @@
+---
+- hosts: localhost ansible_connection=local
+  tasks:
+  - name: update syslog
+    command: echo "me"
