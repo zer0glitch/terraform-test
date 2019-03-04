@@ -4,5 +4,7 @@
   - name: update syslog
     command: echo "me"
 
+  - command: hostnamectl set-hostname test.zeroglitch.org
+
   - name: import filebeats
     import_tasks: filebeat.yml

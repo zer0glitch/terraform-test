@@ -38,8 +38,8 @@
 - name: Create /etc/beats/certs directory
   file: dest=/etc/beats/certs mode=0755 state=directory owner=root group=root
 
-- name: Copy cacert.pem
-  copy: mode=0444 src=/etc/certs/cacert.pem dest=/etc/beats/certs/cacert.pem
+#- name: Copy cacert.pem
+#  copy: mode=0444 src=/etc/certs/cacert.pem dest=/etc/beats/certs/cacert.pem
 
 - name: Enable Firewalld
   service: name=firewalld state=started enabled=yes
