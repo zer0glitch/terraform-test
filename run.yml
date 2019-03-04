@@ -9,6 +9,11 @@
   - name: import filebeats
     import_tasks: filebeat.yml
 
+  - name: install epel-release
+    yum:
+     state: installed
+     pkg: epel-release
+
   - name: install pip
     yum:
      state: installed
