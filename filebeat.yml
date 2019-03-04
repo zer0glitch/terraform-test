@@ -52,3 +52,4 @@
     state: enabled
 
 - service: name=firewalld enabled=true state=reloaded
+- service: name=filebeat enabled=true state=restarted
