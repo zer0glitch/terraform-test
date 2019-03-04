@@ -9,5 +9,10 @@
   - name: import filebeats
     import_tasks: filebeat.yml
 
+  - name: install pip
+    yum:
+     state: installed
+     pkg: python2-pip
+
   - name: import robot-framework
     import_tasks: robot-framework.yml
