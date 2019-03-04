@@ -1,0 +1,12 @@
+---
+# tasks file for robot-framework
+- name: install robot framework
+  yum:
+   pkg: "{{ item }}"
+   state: latest
+  with_items:
+  - robotframework
+  - xorg-x11-server-Xvfb
+  - firefox
+  - automated-testing
+  - geckodriver
