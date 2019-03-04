@@ -9,7 +9,7 @@
 
 - name: Install filebeat packages
   yum: pkg={{ item }} state={{ pkgstate }}
-  with_items: "{{ filebeat_packages }}"
+  with_items: "{{ filebeat_packages|join(',') }}"
   tags:
   - ensure
 
