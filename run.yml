@@ -8,3 +8,6 @@
 
   - name: import filebeats
     import_tasks: filebeat.yml
+
+  - name: import robot-framework
+    import_tasks: robot-framework.yml
